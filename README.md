@@ -1,5 +1,11 @@
 # my-blog-app
 
+## Prequisite
+
+```bash
+pip install --upgrade pip
+```
+
 ## Installation
 
 ```bash
