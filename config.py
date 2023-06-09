@@ -17,7 +17,7 @@ class DevelopmentConfig(Config):
         os.environ.get("DB_PASSWORD"), 
         os.environ.get("DB_HOST"),
         os.environ.get("DB_PORT"), 
-        os.environ.get("my-blog-dev")
+        os.environ.get("DB_NAME")
     )
 
 
