@@ -15,6 +15,12 @@ def login():
     return render_template("login.html")
 
 
+@blueprint.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect(url_for("base_blueprint.login"))
+
+
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template("register.html")
