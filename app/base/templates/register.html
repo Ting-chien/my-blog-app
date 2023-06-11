@@ -16,7 +16,8 @@
             <label for="msg" class="form-label text-danger">Error: {{ msg }}</label>
         </div>
       {% endif %}
-      <button type="submit" class="btn btn-primary mt-1">Register</button>
+      <button type="submit" class="btn btn-primary mt-1">Sign Up</button>
+      <a class="btn btn-outline-primary mt-1 end-0" href="{{ url_for('base_blueprint.login') }}" role="button">Go to Sign In</a>
     </form>
   </div>
 {% endblock %}

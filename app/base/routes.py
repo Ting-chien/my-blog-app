@@ -15,10 +15,9 @@ def login():
             session["user"] = username
             return redirect(url_for("base_blueprint.profile"))
         return render_template('login.html', 
-                                msg='Username not exist or wrong password.', 
-                                is_login=True)
+                                msg='Username not exist or wrong password.')
 
-    return render_template("login.html", is_login=True)
+    return render_template("login.html")
 
 
 @blueprint.route("/logout")
@@ -37,8 +36,7 @@ def register():
         user = User.query.filter_by(username=username).first()
         if user:
             return render_template('register.html', 
-                                   msg='Username already registered', 
-                                   is_register=True)
+                                   msg='Username already registered')
         
         # Insert new user
         user = User(username=username,
@@ -50,7 +48,7 @@ def register():
         session["user"] = username
         return redirect(url_for("base_blueprint.profile"))
 
-    return render_template("register.html", is_register=True)
+    return render_template("register.html")
 
 
 @blueprint.route('/profile', methods=['GET'])
@@ -58,7 +56,7 @@ def profile():
     if "user" in session:
         user = session["user"]
         return render_template("profile.html", user=user)
-    return render_template("login.html")
+    return redirect(url_for("base_blueprint.login"))
 
 
 @blueprint.errorhandler(404)
