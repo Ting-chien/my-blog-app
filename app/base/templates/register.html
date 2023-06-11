@@ -1,5 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="d-flex justify-content-center">
+    <form class="w-25 m-5" action="#" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label">Enter your username: </label>
+        <input type="text" class="form-control" id="username" name="username">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Enter your password:</label>
+        <input type="password" class="form-control" id="password" name="password">
+      </div>
+      {% if msg %}
+        <div>
+            <label for="msg" class="form-label text-danger">Error: {{ msg }}</label>
+        </div>
+      {% endif %}
+      <button type="submit" class="btn btn-primary mt-1">Register</button>
+    </form>
+  </div>
 {% endblock %}
