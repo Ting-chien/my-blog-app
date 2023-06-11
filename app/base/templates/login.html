@@ -1,22 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
-  <form action="#" method="post">
-    <p>
-        <label for="username">Enter your username: </label>
-        <input type="text" placeholder="username" id="username" name="username">
-    </p>
-    <p>
-        <label for="password">Enter your password: </label>
-        <input type="password" placeholder="password" id="password" name="password">
-    </p>
-    <button type="submit">Login</button>
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-center">
+  <form class="w-25 m-5" action="#" method="post">
+    <div class="mb-3">
+      <label for="username" class="form-label">Enter your username: </label>
+      <input type="text" class="form-control" id="username" name="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Enter your password:</label>
+      <input type="password" class="form-control" id="password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary mt-1">Submit</button>
   </form>
-</body>
-</html>
+</div>
+{% endblock %}

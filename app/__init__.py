@@ -1,12 +1,9 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_bootstrap import Bootstrap
 from flask_login import LoginManager
 from importlib import import_module
 
 db = SQLAlchemy()
-bootstrap = Bootstrap()
-# login_manager = LoginManager()
 
 
 def register_blueprints(app):
@@ -32,8 +29,6 @@ def create_app(config):
     app.config.from_object(config)
 
     db.init_app(app)
-    bootstrap.init_app(app)
-    # login_manager.init_app(app)
     register_blueprints(app)
     configure_database(app)
 

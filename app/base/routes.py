@@ -29,8 +29,8 @@ def register():
 @blueprint.route('/profile', methods=['GET'])
 def profile():
     if "user" in session:
-        username = session["user"]
-        return render_template("profile.html", username=username)
+        user = session["user"]
+        return render_template("profile.html", user=user)
     return render_template("login.html")
 
 
