@@ -11,10 +11,10 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
         user = User.query.filter_by(username=username).first()
-        if user.password == password:
+        if user and user.password == password:
             session["user"] = username
             return redirect(url_for("base_blueprint.profile"))
-        return render_template('register.html', 
+        return render_template('login.html', 
                                 msg='Username not exist or wrong password.', 
                                 is_login=True)
 
