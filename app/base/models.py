@@ -14,3 +14,4 @@ class User(db.Model):
     created_at = Column(DateTime, default=datetime.utcnow)
 
     posts = relationship("Post", back_populates="user", cascade="all, delete")
+    messages = relationship("Message", back_populates="user", cascade="all, delete")

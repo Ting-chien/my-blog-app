@@ -17,3 +17,24 @@ $ pip install -r requirements.txt
 
 ```bash
 $ flask run
+```
+
+## Migration
+
+1. Init migration
+
+```bash
+$ flask db init
+```
+
+2. Generate migrate script
+
+```bash
+$ flask db migrate -m "Migrate message"
+```
+
+3. Upgrade database
+
+```bash
+$ flask db upgrade
+```
