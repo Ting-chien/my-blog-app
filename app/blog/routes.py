@@ -1,12 +1,24 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, flash
 
 from app import db
 from app.blog import blueprint
-from app.blog.models import Blog
+from app.blog.models import Post
 from app.base.models import User
 
 
-@blueprint.route('', methods=['GET', 'POST'])
+@blueprint.route("/")
+def index():
+    posts = Post.query.order_by(Post.created_at)
+    return render_template("index.html", posts=posts)
+
+
+@blueprint.route("/post/<int:id>")
+def get_post(id):
+    post = Post.query.filter(Post.id == id).first()
+    return render_template("get_post.html", post=post)
+
+
+@blueprint.route('add-post', methods=['GET', 'POST'])
 def add_post():
     if request.method == "POST":
         author = session["user"]
@@ -20,6 +32,18 @@ def add_post():
         
         # Check if title and content exist
         if not title or not content:
-            render_template
-            
+            flash("Please add title and content.")
+            render_template("add_post.html")
+
+        # Save post to database
+        post = Post(
+            author=author,
+            title=title,
+            content=content
+        )
+        db.session.add(post)
+        db.session.commit()
+
+        redirect(url_for("blog_blueprint.index"))
+
     return render_template("add_post.html")

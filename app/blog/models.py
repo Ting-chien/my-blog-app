@@ -3,9 +3,9 @@ from datetime import datetime
 from sqlalchemy import Column, String, DateTime, Integer, Text
 
 
-class Blog(db.Model):
+class Post(db.Model):
 
-    __tablename__ = 'blogs'
+    __tablename__ = 'posts'
     
     id = Column(Integer, primary_key=True)
     author = Column(String(64), nullable=False)

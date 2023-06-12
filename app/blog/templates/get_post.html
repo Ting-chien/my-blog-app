@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="col-md-6">
+    <!-- Post content -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ post.title }}</h5>
+        <p class="card-text">{{ post.content }}</p>
+      </div>
+    </div>
+
+    <!-- Messages section -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <!-- Messages go here -->
+      </div>
+    </div>
+
+    <!-- Create new message form -->
+    <div class="card">
+      <div class="card-body">
+        <form>
+          <div class="form-group">
+            <textarea class="form-control" rows="3" placeholder="Enter your message"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Post Message</button>
+        </form>
+      </div>
+    </div>
+</div>
+
+{% endblock %}

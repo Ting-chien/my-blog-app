@@ -37,7 +37,7 @@
           </div>
       </nav>
       {% endif %}
-      <div class="container my-5">
+      <div class="container my-5 d-flex justify-content-center">
         {% for message in get_flashed_messages() %}
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
           <strong>Error!</strong> {{ message }}
