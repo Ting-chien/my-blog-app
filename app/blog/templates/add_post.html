@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="mt-5 d-flex justify-content-center">
+  <form class="w-50">
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input type="email" class="form-control" id="title">
+    </div>
+    <div class="mb-3">
+      <label for="content" class="form-label">Please type something .....</label>
+      <textarea class="form-control" id="content" rows="10"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+{% endblock %}

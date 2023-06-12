@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session
+from flask import render_template, request, redirect, url_for, session, flash
 
 from app import db
 from app.base import blueprint
@@ -14,6 +14,7 @@ def login():
         if user and user.password == password:
             session["user"] = username
             return redirect(url_for("base_blueprint.profile"))
+        flash("Wrong input username or password")
         return render_template('login.html', 
                                 msg='Username not exist or wrong password.')
 
