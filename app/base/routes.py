@@ -13,7 +13,7 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user and user.password == password:
             session["user"] = username
-            return redirect(url_for("base_blueprint.profile"))
+            return redirect(url_for("blog_blueprint.index"))
         flash("Wrong input username or password")
         return render_template('login.html', 
                                 msg='Username not exist or wrong password.')
@@ -47,7 +47,7 @@ def register():
 
         # Login to profile page
         session["user"] = username
-        return redirect(url_for("base_blueprint.profile"))
+        return redirect(url_for("blog_blueprint.index"))
 
     return render_template("register.html")
 

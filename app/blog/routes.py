@@ -37,13 +37,13 @@ def add_post():
 
         # Save post to database
         post = Post(
-            author=author,
+            user_id=user.id,
             title=title,
             content=content
         )
         db.session.add(post)
         db.session.commit()
 
-        redirect(url_for("blog_blueprint.index"))
+        return redirect(url_for("blog_blueprint.index"))
 
     return render_template("add_post.html")
