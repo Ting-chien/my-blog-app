@@ -12,16 +12,14 @@
       </div>
     </div>
 
-    <!-- Messages section -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <!-- Messages go here -->
-      </div>
-    </div>
-
-    <!-- Create new message form -->
     <div class="card">
       <div class="card-body">
+        <!-- Messages section -->
+        <h5 class="card-title">Messages</h5>
+        {% for message in messages %}
+          <p class="card-text">{{ message.content }} - {{ message.user.username }}</p>
+        {% endfor %}
+        <!-- Create new message form -->
         <form>
           <div class="form-group">
             <textarea class="form-control" rows="3" placeholder="Enter your message"></textarea>

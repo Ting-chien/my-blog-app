@@ -2,7 +2,7 @@ from flask import render_template, request, redirect, url_for, session, flash
 
 from app import db
 from app.blog import blueprint
-from app.blog.models import Post
+from app.blog.models import Post, Message
 from app.base.models import User
 
 
@@ -15,7 +15,8 @@ def index():
 @blueprint.route("/post/<int:id>")
 def get_post(id):
     post = Post.query.filter(Post.id == id).first()
-    return render_template("get_post.html", post=post)
+    messages = Message.query.filter(Message.post_id == id).all()
+    return render_template("get_post.html", post=post, messages=messages)
 
 
 @blueprint.route('add-post', methods=['GET', 'POST'])
