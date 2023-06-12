@@ -1,9 +1,11 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_migrate import Migrate
 from importlib import import_module
 
 db = SQLAlchemy()
+migrate = Migrate()
 
 
 def register_blueprints(app):
@@ -29,6 +31,7 @@ def create_app(config):
     app.config.from_object(config)
 
     db.init_app(app)
+    migrate.init_app(app, db=db)
     register_blueprints(app)
     configure_database(app)
 
