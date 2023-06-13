@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, session, flash
+from flask import render_template, request, redirect, url_for, session, flash, jsonify
 
 from app import db
 from app.blog import blueprint
@@ -48,6 +48,28 @@ def add_post():
         return redirect(url_for("blog_blueprint.index"))
 
     return render_template("add_post.html")
+
+
+@blueprint.route('/get-messages', methods=['POST'])
+def get_messages():
+
+    id = session["id"]
+    user = session["user"]
+
+    # Select posts belong to user
+    posts = Post.query.filter(Post.user_id == id).all()
+    messages = Message.query.filter(Message.post_id.in_([p.id for p in posts])).order_by(Message.created_at).all()
+
+    result = []
+    for m in messages:
+        result.append({
+            "content": m.content
+        })
+
+
+    return jsonify({
+        "data": result
+    })
 
 
 @blueprint.route('/add-message/<int:post_id>', methods=['GET', 'POST'])
