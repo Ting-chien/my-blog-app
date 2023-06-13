@@ -19,8 +19,15 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Link</a>
+                <li class="nav-item dropdown ms-auto">
+                  <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1827/1827422.png" style="width: 1.5rem;">
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="{{ url_for('base_blueprint.logout') }}">Logout</a></li>
+                  </ul>
                 </li>
                 <li class="nav-item dropdown ms-auto">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
