@@ -26,6 +26,7 @@ class Message(db.Model):
     user_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
     post_id = Column(Integer, ForeignKey("posts.id", ondelete='CASCADE'), nullable=False)
     content = Column(Text)
+    created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="messages", cascade="all, delete")
     post = relationship("Post", back_populates="messages", cascade="all, delete")
