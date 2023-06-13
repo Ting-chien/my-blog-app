@@ -20,9 +20,9 @@
           <p class="card-text">{{ message.content }} - {{ message.user.username }}</p>
         {% endfor %}
         <!-- Create new message form -->
-        <form>
+        <form method="post" action="{{ url_for('blog_blueprint.add_message', post_id=post.id) }}">
           <div class="form-group">
-            <textarea class="form-control" rows="3" placeholder="Enter your message"></textarea>
+            <textarea class="form-control" rows="3" placeholder="Enter your message" name="content"></textarea>
           </div>
           <button type="submit" class="btn btn-primary mt-3">Post Message</button>
         </form>

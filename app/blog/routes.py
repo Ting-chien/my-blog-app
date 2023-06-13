@@ -19,7 +19,7 @@ def get_post(id):
     return render_template("get_post.html", post=post, messages=messages)
 
 
-@blueprint.route('add-post', methods=['GET', 'POST'])
+@blueprint.route('/add-post', methods=['GET', 'POST'])
 def add_post():
     if request.method == "POST":
         author = session["user"]
@@ -48,3 +48,24 @@ def add_post():
         return redirect(url_for("blog_blueprint.index"))
 
     return render_template("add_post.html")
+
+
+@blueprint.route('/add-message/<int:post_id>', methods=['GET', 'POST'])
+def add_message(post_id):
+    
+    username = session["user"]
+    user = User.query.filter(User.username == username).first()
+
+    if request.method == "POST":
+        content = request.form["content"]
+        
+        if content:
+            message = Message(
+                user_id=user.id,
+                post_id=post_id,
+                content=content
+            )
+            db.session.add(message)
+            db.session.commit()
+
+        return redirect(url_for("blog_blueprint.get_post", id=post_id))
