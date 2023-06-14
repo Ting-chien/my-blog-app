@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, flash, jsonify
+from flask_socketio import join_room, leave_room
 
 from app import db, socket_io
 from app.blog import blueprint
@@ -6,10 +7,24 @@ from app.blog.models import Post, Message
 from app.base.models import User
 
 
+@socket_io.on('connect')
+def handle_connect():
+    sid = session["id"]
+    join_room(sid)
+
+
+@socket_io.on('disconnect')
+def handle_disconnect():
+    sid = session["id"]
+    leave_room(sid)
+
+
 @socket_io.on('send')
 def send_message(data):
-    socket_io.emit('get-message', data)
-    socket_io.emit('alert', data)
+    recipient = data["recipient"]
+    message = data["message"]
+    socket_io.emit('get-message', message, room=[recipient])
+    socket_io.emit('alert', message, room=[recipient])
 
 
 @blueprint.route("/")
@@ -96,6 +111,9 @@ def add_message(post_id):
             db.session.add(message)
             db.session.commit()
 
-            send_message(f"{message.content} - {message.user.username}")
+            send_message({
+                "recipient": message.post.user_id,
+                "message": f"{message.content} - {message.user.username}"
+            })
 
         return redirect(url_for("blog_blueprint.get_post", id=post_id))
