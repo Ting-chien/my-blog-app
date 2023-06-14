@@ -13,18 +13,18 @@
     </div>
 
     <div class="card">
-      <div class="card-body">
+      <div id="message-box" class="card-body">
         <!-- Messages section -->
         <h5 class="card-title">Messages</h5>
         {% for message in messages %}
-          <p class="card-text">{{ message.content }} - {{ message.user.username }}</p>
+          <p id="message" class="card-text">{{ message.content }} - {{ message.user.username }}</p>
         {% endfor %}
         <!-- Create new message form -->
         <form method="post" action="{{ url_for('blog_blueprint.add_message', post_id=post.id) }}">
           <div class="form-group">
             <textarea class="form-control" rows="3" placeholder="Enter your message" name="content"></textarea>
           </div>
-          <button id="submitBtn" type="submit" class="btn btn-primary mt-3">Post Message</button>
+          <button type="submit" class="btn btn-primary mt-3">Post Message</button>
         </form>
       </div>
     </div>
@@ -33,4 +33,35 @@
 
 {% endblock %}
 
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script>
+  $(document).ready(function () {
+      // Socket.IO Start connect
+      var socket = io.connect();
+
+      // Socket.IO send message
+      // $("#send").click(function (e) {
+      //     // Send message
+      //     socket.emit('send', $('#message').val())
+      //     // Clear input field
+      //     $('#message').val('')
+      // });
+      
+      // Socket.IO get message
+      socket.on('get', function (data) {
+          // build message
+          console.log(data)
+          let msg = $("<p></p>").text(data);
+          msg.addClass("card-text");
+          // add messages
+          messages = $("#message-box p");
+          if (messages) {
+            let lastMessage = messages.last();
+            lastMessage.after(msg);
+          } else {
+            $("#message-box .card-title").after(msg)
+          }
+      });
+  });
+</script>
+{% endblock javascripts %}

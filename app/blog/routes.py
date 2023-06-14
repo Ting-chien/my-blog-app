@@ -1,9 +1,15 @@
 from flask import render_template, request, redirect, url_for, session, flash, jsonify
 
-from app import db
+from app import db, socket_io
 from app.blog import blueprint
 from app.blog.models import Post, Message
 from app.base.models import User
+
+
+@socket_io.on('send')
+def send_message(data):
+    print("calling in socket send")
+    socket_io.emit('get', data)
 
 
 @blueprint.route("/")
@@ -89,5 +95,7 @@ def add_message(post_id):
             )
             db.session.add(message)
             db.session.commit()
+
+            send_message(f"{message.content} - {message.user.username}")
 
         return redirect(url_for("blog_blueprint.get_post", id=post_id))
