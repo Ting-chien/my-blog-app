@@ -8,8 +8,8 @@ from app.base.models import User
 
 @socket_io.on('send')
 def send_message(data):
-    print("calling in socket send")
-    socket_io.emit('get', data)
+    socket_io.emit('get-message', data)
+    socket_io.emit('alert', data)
 
 
 @blueprint.route("/")

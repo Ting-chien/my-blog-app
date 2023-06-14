@@ -3,6 +3,10 @@ var isExpand = false
 
 function getMessages() {
 
+    // remove span on alert img
+    $("#alert-span").remove()
+
+    // get messages
     const notification = document.querySelector(".notification")
     console.log(isExpand)
     if (isExpand) {

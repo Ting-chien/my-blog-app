@@ -38,24 +38,14 @@
   $(document).ready(function () {
       // Socket.IO Start connect
       var socket = io.connect();
-
-      // Socket.IO send message
-      // $("#send").click(function (e) {
-      //     // Send message
-      //     socket.emit('send', $('#message').val())
-      //     // Clear input field
-      //     $('#message').val('')
-      // });
-      
       // Socket.IO get message
-      socket.on('get', function (data) {
+      socket.on('get-message', function (data) {
           // build message
-          console.log(data)
           let msg = $("<p></p>").text(data);
           msg.addClass("card-text");
           // add messages
           messages = $("#message-box p");
-          if (messages) {
+          if (messages.length > 0) {
             let lastMessage = messages.last();
             lastMessage.after(msg);
           } else {
