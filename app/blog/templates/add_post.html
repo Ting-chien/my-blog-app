@@ -19,15 +19,31 @@
 <div class="mt-5 d-flex justify-content-center">
   <form class="w-50" method="post" action="{{ url_for('blog_blueprint.upload_file') }}" enctype=multipart/form-data>
     <div class="mb-3">
-      <label for="formFile" class="form-label">Default file input example</label>
+      <label for="formFile" class="form-label">File upload with naive method</label>
       <input class="form-control" type="file" id="formFile" name="file">
     </div>
-    <div class="mb-3">
-      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-      <input class="form-control" type="file" id="formFileMultiple" multiple>
-    </div>    
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
 
+<div class="mt-5 d-flex justify-content-center">
+  <form class="w-50">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">File upload by js</label>
+      <input class="form-control" type="file" id="file-uploader" accept="image/png" multiple="multiple">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <img id='preview'> 
+</div>
+
 {% endblock %}
+
+{% block javascripts %}
+<script>
+  const fileUploader = document.querySelector('#file-uploader');
+  fileUploader.addEventListener('change', (e) => {
+    console.log(e.target.files); // get list of file objects
+  });
+</script>
+{% endblock javascripts %}
