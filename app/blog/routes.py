@@ -1,5 +1,7 @@
-from flask import render_template, request, redirect, url_for, session, flash, jsonify
+import os
+from flask import render_template, request, redirect, url_for, session, flash, jsonify, send_from_directory
 from flask_socketio import join_room, leave_room
+from werkzeug.utils import secure_filename
 
 from app import db, socket_io
 from app.blog import blueprint
@@ -117,3 +119,25 @@ def add_message(post_id):
             })
 
         return redirect(url_for("blog_blueprint.get_post", id=post_id))
+    
+
+@blueprint.route("/upload-file", methods=["POST"])
+def upload_file():
+
+    if request.method == "POST":
+        file = request.files["file"]
+        filename = secure_filename(file.filename)
+        filepath = "app/static/img"
+        file.save(os.path.join(filepath, filename))
+        return redirect(url_for("blog_blueprint.uploaded_file", filename=filename))
+
+    return redirect(url_for("blog_blueprint.add_post"))
+
+
+@blueprint.route("/files/<filename>")
+def uploaded_file(filename):
+    return f"""
+    <img src="/static/img/{filename}">
+    """
+
+

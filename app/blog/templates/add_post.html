@@ -16,4 +16,18 @@
   </form>
 </div>
 
+<div class="mt-5 d-flex justify-content-center">
+  <form class="w-50" method="post" action="{{ url_for('blog_blueprint.upload_file') }}" enctype=multipart/form-data>
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Default file input example</label>
+      <input class="form-control" type="file" id="formFile" name="file">
+    </div>
+    <div class="mb-3">
+      <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+      <input class="form-control" type="file" id="formFileMultiple" multiple>
+    </div>    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
 {% endblock %}
