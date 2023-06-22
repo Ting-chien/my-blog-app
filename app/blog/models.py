@@ -1,6 +1,6 @@
 from app import db
 from datetime import datetime
-from sqlalchemy import Column, String, DateTime, Integer, Text, ForeignKey
+from sqlalchemy import Column, String, DateTime, Integer, Text, LargeBinary, ForeignKey
 from sqlalchemy.orm import relationship
 
 
@@ -30,3 +30,11 @@ class Message(db.Model):
 
     user = relationship("User", back_populates="messages", cascade="all, delete")
     post = relationship("Post", back_populates="messages", cascade="all, delete")
+
+
+class Image(db.Model):
+    
+    __tablename__ = 'images'
+
+    id = Column(Integer, primary_key=True)
+    data = Column(LargeBinary)

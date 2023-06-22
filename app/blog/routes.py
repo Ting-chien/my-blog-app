@@ -1,11 +1,13 @@
 import os
+import json
 from flask import render_template, request, redirect, url_for, session, flash, jsonify, send_from_directory
 from flask_socketio import join_room, leave_room
 from werkzeug.utils import secure_filename
+from psycopg2 import Binary
 
 from app import db, socket_io
 from app.blog import blueprint
-from app.blog.models import Post, Message
+from app.blog.models import Post, Message, Image
 from app.base.models import User
 
 
@@ -141,3 +143,19 @@ def uploaded_file(filename):
     """
 
 
+@blueprint.route("/upload-file-with-blob", methods=["POST"])
+def upload_file_with_blob():
+
+    json_data = request.json
+
+    # insert new image
+    img = Image(data=json.dumps(json_data["img"]).encode())
+    db.session.add(img)
+    db.session.commit()
+
+    # return image object
+    print(type(img.data))
+    print(type(img.data.decode()))
+    return jsonify({
+        "img": json.loads(img.data.decode())
+    })
