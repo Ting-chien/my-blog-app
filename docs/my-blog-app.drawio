@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" modified="2023-06-22T09:13:06.000Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36" etag="wplRqYPDnaNyHjkOkbVB" version="21.5.0" type="device">
+  <diagram name="Page-1" id="qOhteLg23YhvOkcgkTcN">
+    <mxGraphModel dx="829" dy="1206" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="A9682NiyplT4cpyg-DLq-11" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="135" y="210" width="580" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-1" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry width="580" height="680" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-2" value="Title" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="90" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-3" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="130" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-4" value="Typing something ..." style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="200" width="115" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-5" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="230" width="420" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-6" value="Please select image (5 MB limited)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="440" width="195" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-7" value="" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="480" width="420" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-8" value="Select" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="80" y="480" width="85" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-9" value="my-image.png" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="165" y="480" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="A9682NiyplT4cpyg-DLq-10" value="Submit" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="A9682NiyplT4cpyg-DLq-11">
+          <mxGeometry x="75" y="580" width="65" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
