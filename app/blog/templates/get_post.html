@@ -9,6 +9,9 @@
       <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <p class="card-text">{{ post.content }}</p>
+        <div>
+          <img id="show-in-post" class="img-fluid">
+        </div>
       </div>
     </div>
 
@@ -34,6 +37,7 @@
 {% endblock %}
 
 {% block javascripts %}
+<script src="/static/js/displayImg.js"></script>
 <script>
   $(document).ready(function () {
       // Socket.IO Start connect
@@ -53,5 +57,10 @@
           }
       });
   });
+</script>
+<script>
+  $(document).ready(function () {
+    displayImgByBufferArr(JSON.parse("{{ img }}"))
+  })
 </script>
 {% endblock javascripts %}

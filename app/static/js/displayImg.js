@@ -21,5 +21,5 @@ function displayImgByBase64(blob) {
 
 // 讀取server端傳回來的array，將array轉回typed array，再將其變回 blob 並產生blob的url 
 function displayImgByBufferArr(arr) {
-    document.querySelector('#preview').src = URL.createObjectURL(new Blob([new Uint8Array(arr)], {type: "image/png"}));
+    document.querySelector('#show-in-post').src = URL.createObjectURL(new Blob([new Uint8Array(arr)], {type: "image/png"}));
 }
