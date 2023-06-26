@@ -46,11 +46,13 @@ def get_post(id):
 
 @blueprint.route('/add-post', methods=['GET', 'POST'])
 def add_post():
-    if request.method == "POST":
-        author = session["user"]
-        title = request.form["title"]
-        content = request.form["content"]
 
+    if request.method == "POST":
+        data = request.json
+        author = session["user"]
+        title = data["title"]
+        content = data["content"]
+        print(title, content)
         # Check if the author exist
         user = User.query.filter_by(username=author).first()
         if not user:

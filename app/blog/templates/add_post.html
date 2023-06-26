@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="mt-5 d-flex justify-content-center">
-  <form class="w-50" method="post">
+  <form class="w-50" method="post" id="new-post">
     <div class="mb-3">
       <label for="title" class="form-label">Title</label>
       <input type="text" class="form-control" id="title" name="title">
@@ -19,7 +19,7 @@
     <div class="mb-3" id="preview">
       <!-- Insert image here  -->
     </div>
-    <button type="button" class="btn btn-primary" id="file-upload-sender">Submit</button>
+    <button type="button" class="btn btn-primary" id="file-upload-sender" onclick="addPost()">Submit</button>
   </form>
 </div>
 
@@ -28,6 +28,7 @@
 {% block javascripts %}
 <script src="/static/js/displayImg.js"></script>
 <script src="/static/js/uploadImgByBufferArr.js"></script>
+<script src="/static/js/addPost.js"></script>
 <script>
   // Trigger when the image is selected
   const fileUploadSelector = document.querySelector('#file-upload-selector');
@@ -36,9 +37,9 @@
     displayImgByBase64(e.target.files[0])
   });
   // Upload image handler
-  const fileUploadSender = document.querySelector("#file-upload-sender")
-  fileUploadSender.addEventListener("click", (e) => {
-    uploadImg(fileUploadSelector.files[0]);
-  })
+  // const fileUploadSender = document.querySelector("#file-upload-sender")
+  // fileUploadSender.addEventListener("click", (e) => {
+  //   uploadImg(fileUploadSelector.files[0]);
+  // })
 </script>
 {% endblock javascripts %}
