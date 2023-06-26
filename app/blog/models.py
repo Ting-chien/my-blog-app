@@ -12,6 +12,7 @@ class Post(db.Model):
     user_id = Column(Integer, ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
     title = Column(String(128), nullable=False)
     content = Column(Text)
+    image = Column(LargeBinary)
     created_at = Column(DateTime, default=datetime.utcnow)
 
     user = relationship("User", back_populates="posts", cascade="all, delete")
@@ -30,11 +31,3 @@ class Message(db.Model):
 
     user = relationship("User", back_populates="messages", cascade="all, delete")
     post = relationship("Post", back_populates="messages", cascade="all, delete")
-
-
-class Image(db.Model):
-    
-    __tablename__ = 'images'
-
-    id = Column(Integer, primary_key=True)
-    data = Column(LargeBinary)

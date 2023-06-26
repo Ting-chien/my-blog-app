@@ -7,7 +7,7 @@ from psycopg2 import Binary
 
 from app import db, socket_io
 from app.blog import blueprint
-from app.blog.models import Post, Message, Image
+from app.blog.models import Post, Message
 from app.base.models import User
 
 
@@ -52,7 +52,8 @@ def add_post():
         author = session["user"]
         title = data["title"]
         content = data["content"]
-        print(title, content)
+        image = data["img"]
+
         # Check if the author exist
         user = User.query.filter_by(username=author).first()
         if not user:
@@ -67,7 +68,8 @@ def add_post():
         post = Post(
             user_id=user.id,
             title=title,
-            content=content
+            content=content,
+            image=json.dumps(image).encode()
         )
         db.session.add(post)
         db.session.commit()
