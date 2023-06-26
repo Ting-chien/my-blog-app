@@ -40,71 +40,18 @@
 {% endblock %}
 
 {% block javascripts %}
+<script src="/static/js/displayImg.js"></script>
+<script src="/static/js/uploadImgByBufferArr.js"></script>
 <script>
+  // Trigger when the image is selected
   const fileUploadSelector = document.querySelector('#file-upload-selector');
   fileUploadSelector.addEventListener('change', (e) => {
-    console.log(e.target.files); // get list of file objects
-    // display_img(e.target.files); 
+    console.log(e.target.files);
   });
-
+  // Upload image handler
   const fileUploadSender = document.querySelector("#file-upload-sender")
   fileUploadSender.addEventListener("click", (e) => {
-    upload_img(fileUploadSelector.files[0 ]);
+    uploadImg(fileUploadSelector.files[0]);
   })
-
-  // 將照片轉成 base64 string
-  function display_img(curFiles) {
-    const curFile = curFiles[0];
-    const reader = new FileReader();
-    // 這會在readAS後才執行
-    reader.onload = function (e) {
-        // console.log('file:', e.target.result); // base64
-        document.querySelector('#preview').src = e.target.result;
-    };
-    // to data url
-    reader.readAsDataURL(curFile);
-  }
-
-  // 將 blob 轉乘 array buffer
-  function blob2buffer(blob) {
-    return new Promise((resolve, reject) => {
-        var arrayBuffer;
-        var fileReader = new FileReader();
-        fileReader.onload = function (event) {
-            arrayBuffer = event.target.result;
-            resolve(arrayBuffer);
-        };
-
-        fileReader.readAsArrayBuffer(blob);
-        return arrayBuffer;
-    });
-  }
-
-  // 讀取server端傳回來的array，將array轉回typed array，再將其變回 blob 並產生blob的url 
-  function display_arr_img(arr) {
-    document.querySelector('#preview').src = URL.createObjectURL(new Blob([new Uint8Array(arr)], {type: "image/png"}));
-  }
-
-  // 因為 buffer 不能直接被操作，因此須先將圖片轉成 array buffer 再轉乘 string 再丟給後端
-  async function upload_img(pic) {
-    arrayBuffer = await blob2buffer(pic);
-
-    fetch("/blog/upload-file-with-blob", {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json' // flask need to set header of json
-        },
-        body: JSON.stringify({
-            item_id: 1,
-            format: 'png',
-            img: Array.from(new Uint8Array(arrayBuffer)),
-        }),
-    }).then((res)=> {
-        return res.json()
-    }).then((json) => {
-        display_arr_img(json['img']);
-    })
-  }
-  
 </script>
 {% endblock javascripts %}

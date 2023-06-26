@@ -146,6 +146,16 @@ def uploaded_file(filename):
 @blueprint.route("/upload-file-with-blob", methods=["POST"])
 def upload_file_with_blob():
 
+    print(request.form)
+
+    return jsonify({
+        "img": None
+    })
+
+
+@blueprint.route("/upload-file-with-buffer", methods=["POST"])
+def upload_file_with_buffer():
+
     json_data = request.json
 
     # insert new image
@@ -154,8 +164,6 @@ def upload_file_with_blob():
     db.session.commit()
 
     # return image object
-    print(type(img.data))
-    print(type(img.data.decode()))
     return jsonify({
         "img": json.loads(img.data.decode())
     })
