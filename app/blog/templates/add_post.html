@@ -12,29 +12,15 @@
       <label for="content" class="form-label">Please type something .....</label>
       <textarea class="form-control" id="content" name="content" rows="10"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
-
-<div class="mt-5 d-flex justify-content-center">
-  <form class="w-50" method="post" action="{{ url_for('blog_blueprint.upload_file') }}" enctype=multipart/form-data>
-    <div class="mb-3">
-      <label for="formFile" class="form-label">File upload with naive method</label>
-      <input class="form-control" type="file" id="formFile" name="file">
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
-
-<div class="mt-5 d-flex justify-content-center">
-  <form class="w-50">
     <div class="mb-3">
       <label for="formFile" class="form-label">File upload by js</label>
-      <input class="form-control" type="file" id="file-upload-selector" accept="image/png" multiple="multiple">
+      <input class="form-control" type="file" id="file-upload-selector" accept="image/png">
+    </div>
+    <div class="mb-3" id="preview">
+      <!-- Insert image here  -->
     </div>
     <button type="button" class="btn btn-primary" id="file-upload-sender">Submit</button>
   </form>
-  <img id='preview'> 
 </div>
 
 {% endblock %}
@@ -47,6 +33,7 @@
   const fileUploadSelector = document.querySelector('#file-upload-selector');
   fileUploadSelector.addEventListener('change', (e) => {
     console.log(e.target.files);
+    displayImgByBase64(e.target.files[0])
   });
   // Upload image handler
   const fileUploadSender = document.querySelector("#file-upload-sender")

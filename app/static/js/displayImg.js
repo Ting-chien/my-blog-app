@@ -3,8 +3,17 @@ function displayImgByBase64(blob) {
     const reader = new FileReader();
     // 這會在readAS後才執行
     reader.onload = function (e) {
-        // console.log('file:', e.target.result); // base64
-        document.querySelector('#preview').src = e.target.result;
+        // Remove old image
+        const oldImg = document.querySelector('#preview img');
+        if (oldImg) {
+            oldImg.remove();
+        }
+        // Add new image
+        const img = document.createElement("img");
+        img.className = "img-thumbnail w-50";
+        img.style.height = "120px";
+        img.setAttribute("src", e.target.result);
+        document.querySelector('#preview').appendChild(img)
     };
     // to data url
     reader.readAsDataURL(blob);
