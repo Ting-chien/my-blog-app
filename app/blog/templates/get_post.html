@@ -60,7 +60,9 @@
 </script>
 <script>
   $(document).ready(function () {
-    displayImgByBufferArr(JSON.parse("{{ img }}"))
+    if ("{{ img }}") {
+      displayImgByBufferArr(JSON.parse("{{ img }}"))
+    }
   })
 </script>
 {% endblock javascripts %}

@@ -41,7 +41,8 @@ def index():
 def get_post(id):
     post = Post.query.filter(Post.id == id).first()
     messages = Message.query.filter(Message.post_id == id).all()
-    return render_template("get_post.html", post=post, messages=messages, img=json.loads(post.image.decode()))
+    buffer_arr = json.loads(post.image.decode()) if post.image else None
+    return render_template("get_post.html", post=post, messages=messages, img=buffer_arr)
 
 
 @blueprint.route('/add-post', methods=['GET', 'POST'])
