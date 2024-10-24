@@ -2,14 +2,16 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_migrate import Migrate
+from flask_bootstrap import Bootstrap
 from importlib import import_module
 
 db = SQLAlchemy()
 migrate = Migrate()
+bootstrap = Bootstrap()
 
 
 def register_blueprints(app):
-    for module_name in ["base", "blog"]:
+    for module_name in ["base", "auth"]:
         module = import_module('app.{}.routes'.format(module_name))
         app.register_blueprint(module.blueprint)
 
@@ -32,6 +34,7 @@ def create_app(config):
 
     db.init_app(app)
     migrate.init_app(app, db=db)
+    bootstrap.init_app(app)
     register_blueprints(app)
     configure_database(app)
 

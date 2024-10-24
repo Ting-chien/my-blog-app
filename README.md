@@ -35,6 +35,8 @@ $ flask db migrate -m "Migrate message"
 
 3. Upgrade database
 
+For different environments, please change FLASK_ENV in .flaskenv file.
+
 ```bash
 $ flask db upgrade
 ```

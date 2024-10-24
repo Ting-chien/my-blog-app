@@ -1,5 +1,6 @@
 import os
-from app import create_app
+from app import create_app, db
+from app.auth.models import User, Role
 from config import config
 
 ENV = os.getenv('FLASK_ENV')
@@ -12,6 +13,10 @@ except KeyError:
 
 app = create_app(app_config)
 
+
+@app.shell_context_processor
+def make_shell_context():
+    return dict(db=db, User=User, Role=Role)
 
 @app.cli.command()
 def test():
