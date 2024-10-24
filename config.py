@@ -13,18 +13,23 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = "postgresql://{}:{}@{}:{}/{}".format(
-        os.environ.get("DB_USERNAME"), 
-        os.environ.get("DB_PASSWORD"), 
-        os.environ.get("DB_HOST"),
-        os.environ.get("DB_PORT"), 
-        os.environ.get("DB_NAME")
+        os.environ.get("DEV_DB_USERNAME"), 
+        os.environ.get("DEV_DB_PASSWORD"), 
+        os.environ.get("DEV_DB_HOST"),
+        os.environ.get("DEV_DB_PORT"), 
+        os.environ.get("DEV_DB_NAME")
     )
 
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
-        'sqlite://'
+    SQLALCHEMY_DATABASE_URI = "postgresql://{}:{}@{}:{}/{}".format(
+        os.environ.get("TESTING_DB_USERNAME"), 
+        os.environ.get("TESTING_DB_PASSWORD"), 
+        os.environ.get("TESTING_DB_HOST"),
+        os.environ.get("TESTING_DB_PORT"), 
+        os.environ.get("TESTING_DB_NAME")
+    )
 
 
 class ProductionConfig(Config):
