@@ -4,12 +4,15 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
+from flask_login import LoginManager
 from importlib import import_module
 
 db = SQLAlchemy()
 migrate = Migrate()
 bootstrap = Bootstrap()
 moment = Moment()
+login_manager = LoginManager()
+login_manager.login_view = "auth.login" # set auto redirect to login page
 
 
 def register_blueprints(app):
@@ -38,6 +41,7 @@ def create_app(config):
     migrate.init_app(app, db=db)
     bootstrap.init_app(app)
     moment.init_app(app)
+    login_manager.init_app(app)
     register_blueprints(app)
     configure_database(app)
 
