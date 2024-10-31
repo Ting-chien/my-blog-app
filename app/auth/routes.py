@@ -1,14 +1,9 @@
 from flask import render_template, redirect, url_for, request, flash
-from flask_login import login_user
+from flask_login import login_user, logout_user, login_required
 
 from . import blueprint
 from .forms import LoginForm
 from .models import User
-
-
-@blueprint.route("/")
-def index():
-    return "Hello login"
 
 
 @blueprint.route("/login", methods=["GET", "POST"])
@@ -23,7 +18,14 @@ def login():
             next = request.args.get("next")
             if next is None or not next.startswith("/"):
                 next = url_for("base.index")
-            print(next)
             return redirect(next)
         flash("Invalid username or password.")
     return render_template("auth/login.html", form=form)
+
+
+@blueprint.route("/logout")
+@login_required
+def logout():
+    logout_user() # 透過 flask-login 的函數來將使用者從 session 中移除
+    flash("You have been logged out.")
+    return redirect(url_for("base.index"))

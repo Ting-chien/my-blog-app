@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 blueprint = Blueprint(
-    'base_blueprint',
+    'auth',
     __name__,
     url_prefix='/auth'
 )
