@@ -10,6 +10,10 @@ from .models import User
 
 @blueprint.before_app_request
 def before_request():
+    """
+    若使用者已登入，但還未驗證成功，且請求的url路徑
+    非/auth相關API或靜態欓，則將啟導轉到 unconfirmed 頁面。
+    """
     if current_user.is_authenticated \
             and not current_user.confirmed \
             and request.endpoint \
@@ -20,6 +24,9 @@ def before_request():
 
 @blueprint.route('/unconfirmed')
 def unconfirmed():
+    """
+    確認使用這是否為匿名或已驗證，若都不是則導到上未驗證的頁面
+    ＝"""
     if current_user.is_anonymous or current_user.confirmed:
         return redirect(url_for('base.index'))
     return render_template('auth/unconfirmed.html')
@@ -72,13 +79,23 @@ def register():
 @login_required
 def confirm(token):
     if current_user.confirmed:
-        print("Already confirmed")
         return redirect(url_for('base.index'))
     if current_user.confirm(token):
-        print("Confirmed")
         db.session.commit()
         flash('You have confirmed your account. Thanks!')
     else:
-        print("")
         flash('The confirmation link is invalid or has expired.')
     return redirect(url_for('base.index'))
+
+
+@blueprint.route('/confirm')
+@login_required
+def resend_confirmation():
+    """
+    重複做一次註冊成功時的動作，來產生一封新的驗證信
+    """
+    token = current_user.generate_confirmation_token()
+    send_email(current_user.email, 'Confirm Your Account',
+               'auth/email/confirm', user=current_user, token=token)
+    flash('A new confirmation email has been sent to you by email.')
+    return redirect(url_for('main.index'))

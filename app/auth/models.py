@@ -56,14 +56,11 @@ class User(UserMixin, db.Model):
         """
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
-            data = s.loads(token.encode('utf-8'), max_age=expiration)
+            data = s.loads(token, max_age=expiration)
         except:
             return False
-        print(data.get("confirm"))
         if data.get('confirm') != self.id:
-            print("Not confirmed")
             return False
-        print("Confirmed")
         self.confirmed = True
         db.session.add(self)
         return True
