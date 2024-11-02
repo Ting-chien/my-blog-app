@@ -10,8 +10,9 @@ class Config:
         ['true', 'on', '1']
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    MAIL_SUBJECT_PREFIX = '[Eric Wang]'
-    MAIL_SENDER = 'Flasky Admin <flasky@example.com>'
+    MAIL_SUBJECT_PREFIX = '[My Blog App]'
+    MAIL_SENDER = 'Eric Wang <eric821210@gmail.com>'
+    ADMIN = os.environ.get('ADMIN')
 
     @staticmethod
     def init_app(app):
