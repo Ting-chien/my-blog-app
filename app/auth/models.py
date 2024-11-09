@@ -1,7 +1,8 @@
+import hashlib
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import URLSafeTimedSerializer as Serializer
-from flask import current_app
+from flask import current_app, request
 from datetime import datetime
 
 from .. import db, login_manager
@@ -103,6 +104,7 @@ class User(UserMixin, db.Model):
     about_me = db.Column(db.Text())
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     last_seen = db.Column(db.DateTime(), default=datetime.utcnow)
+    avatar_hash = db.Column(db.String(32))
 
     def __init__(self, **kwargs):
         super(User, self).__init__(**kwargs)
@@ -113,6 +115,9 @@ class User(UserMixin, db.Model):
                 self.role = Role.query.filter_by(name='Administrator').first()
             if self.role is None:
                 self.role = Role.query.filter_by(default=True).first()
+        # 因為頻繁的計算雜湊非常耗效能，因此建立一欄位將該雜湊值儲存起來，只有新增或更新時會去更改
+        if self.email is not None and self.avatar_hash is None:
+            self.avatar_hash = self.gravatar_hash()
 
     @property
     def password(self):
@@ -171,6 +176,19 @@ class User(UserMixin, db.Model):
         self.last_seen = datetime.utcnow()
         db.session.add(self)
         db.session.commit()
+
+    def gravatar_hash(self):
+        return hashlib.md5(self.email.lower().encode('utf-8')).hexdigest()
+
+    def gravatar(self, size=100, default='identicon', rating='g'):
+        # 透過 https://secure.gravatar.com 這個網站提供的服務，讓使用者可以透過
+        # url 來取得上傳的大頭貼，url 的路徑為 https://secure.gravatar.com/avatar
+        # 加上使用者信箱 email 的 MD5 雜湊，該 API 又提供了 s, r, d, fd 等參數供
+        # 使用者指定圖片大小、圖像分級、預設圖像、是否強制使用預設圖像等設定
+        url = 'https://secure.gravatar.com/avatar'
+        hash = self.avatar_hash or self.gravatar_hash()
+        return '{url}/{hash}?s={size}&d={default}&r={rating}'.format(
+            url=url, hash=hash, size=size, default=default, rating=rating)
 
     def __repr__(self):
         return '<User %r>' % self.username
