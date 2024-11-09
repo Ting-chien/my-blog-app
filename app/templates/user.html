@@ -23,6 +23,10 @@
         {% if user == current_user %}
         <a class="btn btn-default" href="{{ url_for('.edit_profile') }}">Edit Profile</a>
         {% endif %}
+        <!-- 先註解此功能，未來應該要改成可以讓管理者去用戶列表選擇要編輯的用戶，而不是只能編輯自己的資訊 -->
+        <!-- {% if current_user.is_administrator() %}
+        <a class="btn btn-danger" href="{{ url_for('.edit_profile_admin', id=user.id) }}">Edit Profile [Admin]</a>
+        {% endif %} -->
     </p>
 </div>
 {% endblock %}
