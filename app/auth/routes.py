@@ -14,12 +14,13 @@ def before_request():
     若使用者已登入，但還未驗證成功，且請求的url路徑
     非/auth相關API或靜態欓，則將啟導轉到 unconfirmed 頁面。
     """
-    if current_user.is_authenticated \
-            and not current_user.confirmed \
+    if current_user.is_authenticated:
+        current_user.ping() # 在使用者登入成功時透過ping()來紀錄最新登入時間
+        if  not current_user.confirmed \
             and request.endpoint \
             and request.blueprint != 'auth' \
             and request.endpoint != 'static':
-        return redirect(url_for('auth.unconfirmed'))
+            return redirect(url_for('auth.unconfirmed'))
 
 
 @blueprint.route('/unconfirmed')
